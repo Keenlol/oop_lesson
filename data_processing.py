@@ -15,56 +15,55 @@ with open(os.path.join(__location__, 'Countries.csv')) as f:
     for r in rows:
         countries.append(dict(r))
 
-# Print the average temperature of all the cities
-print("The average temperature of all the cities:")
-temps = []
-for city in cities:
-    temps.append(float(city['temperature']))
-print(sum(temps)/len(temps))
-print()
+# Get average, min or max temperature of the give _country
+def temperature(_country, _option):
+    temps = []
+    for city in cities:
+        if city['country'] == _country:
+            temps.append(float(city['temperature']))
+    
+    if _option == "avg":
+        value = sum(temps)/len(temps)
+    elif _option == "max":
+        value = max(temps)
+    elif _option == "min":
+        value = min(temps)
 
-# Print all cities in Italy
-cities_temp = []
-my_country = 'Italy'
-for city in cities:
-    if city['country'] == my_country:
-        cities_temp.append(city['city'])
-print("All the cities in", my_country, ":")
-print(cities_temp)
-print()
+    return value
 
-# Print the average temperature for all the cities in Italy
-temps = []
-my_country = 'Italy'
-for city in cities:
-    if city['country'] == my_country:
-        temps.append(float(city['temperature']))
-print("The average temperature of all the cities in", my_country, ":")
-print(sum(temps)/len(temps))
-print()
 
-# Print the max temperature for all the cities in Italy
-temps = []
-my_country = 'Italy'
-for city in cities:
-    if city['country'] == my_country:
-        temps.append(float(city['temperature']))
-print("The max temperature of all the cities in", my_country, ":")
-print(max(temps))
-print()
+# Get all cities in the given _country
+def get_all_city(_country):
+    cities_temp = []
+    for city in cities:
+        if city['country'] == _country:
+            cities_temp.append(city['city'])
+    
+    return cities_temp
 
-# Print the min temperature for all the cities in Italy
-temps = []
-my_country = 'Italy'
-for city in cities:
-    if city['country'] == my_country:
-        temps.append(float(city['temperature']))
-print("The min temperature of all the cities in", my_country, ":")
-print(min(temps))
+
+# All city in Italy
+print("All the cities in Italy :")
+print(get_all_city("Italy"))
 print()
 
 # Let's write code to
 # - print the average temperature for all the cities in Italy
+print(f"The average temperature of all the cities in Italy :")
+print(temperature("Italy", "avg"))
+print()
+
 # - print the average temperature for all the cities in Sweden
+print(f"The average temperature of all the cities in Sweden :")
+print(temperature("Sweden", "avg"))
+print()
+
 # - print the min temperature for all the cities in Italy
+print(f"The min temperature of all the cities in Italy :")
+print(temperature("Italy", "min"))
+print()
+
 # - print the max temperature for all the cities in Sweden
+print(f"The max temperature of all the cities in Sweden :")
+print(temperature("Sweden", "max"))
+print()
