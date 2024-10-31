@@ -41,29 +41,47 @@ def get_all_city(_country):
     
     return cities_temp
 
+################################################
 
-# All city in Italy
-print("All the cities in Italy :")
-print(get_all_city("Italy"))
-print()
+def filter(condition, dict_list):
+    filtered_list = []
+    for item in dict_list:
+        if condition(item):
+            filtered_list.append(item)
+    return filtered_list
+
+def aggregate(_aggregation_key, _aggregation_function, _dict_list):
+    temp = []
+    for item in _dict_list:
+        temp.append(float(item[_aggregation_key]))
+    return _aggregation_function(temp)
+
+f_min = lambda x : min(x)
+f_avg = lambda x : sum(x)/len(x)
+f_max = lambda x : max(x)
 
 # Let's write code to
 # - print the average temperature for all the cities in Italy
-print(f"The average temperature of all the cities in Italy :")
-print(temperature("Italy", "avg"))
+print("print the average temperature for all the cities in Italy")
+x = filter(lambda x: x['country'] == "Italy", cities)
+print(aggregate("temperature", f_avg, x))
 print()
 
 # - print the average temperature for all the cities in Sweden
-print(f"The average temperature of all the cities in Sweden :")
-print(temperature("Sweden", "avg"))
+print("print the average temperature for all the cities in Sweden")
+x = filter(lambda x: x['country'] == "Sweden", cities)
+print(aggregate("temperature", f_avg, x))
 print()
 
 # - print the min temperature for all the cities in Italy
-print(f"The min temperature of all the cities in Italy :")
-print(temperature("Italy", "min"))
+print("print the min temperature for all the cities in Italy")
+x = filter(lambda x: x['country'] == "Italy", cities)
+print(aggregate("temperature", f_min, x))
 print()
 
 # - print the max temperature for all the cities in Sweden
-print(f"The max temperature of all the cities in Sweden :")
-print(temperature("Sweden", "max"))
+print("print the max temperature for all the cities in Sweden")
+x = filter(lambda x: x['country'] == "Sweden", cities)
+print(aggregate("temperature", f_max, x))
 print()
+
